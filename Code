@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JS</title>
+    <style>
+        
+    </style>
+  </head>
+  <body>
+    <table align="center" width="50%" style="height: 250px">
+      <tr style="height: 100px" align="center">
+        <td>
+          <h1>Get Weather Of your City</h1>
+        </td>
+      </tr>
+      <tr style="height: 70px">
+        <td width="50%" align="center">
+            City Name:<input type="text" id="input"><br><br>
+            <button id="getdata" onclick="getweather()">Get Weather</button>
+        </td>
+      </tr>
+    </table>
+    <table align="center" width="50%" style="height:  200px">
+      <tr style="height: 10px">
+        <td style="text-align: right;" width="43%">
+            Temp:
+          <td>
+            <input type="text" id="input1">C
+          </td>
+          <tr style="height: 10px">
+            <td style="text-align: right;" width="43%">
+              Min_temp:
+              <td>
+                <input type="text" id="input2">C
+              </td>
+              <tr style="height: 10px">
+                <td style="text-align: right;" width="43%">
+                  Max_temp:
+                  <td>
+                    <input type="text" id="input3">C
+                  </td>
+                  <tr style="height: 10px">
+                    <td style="text-align: right;" width="43%">
+                      Humidity:
+                      <td>
+                        <input type="text" id="input4">%
+                      </td>
+                    </td>
+                  </tr>
+                  <tr style="height: 10px">
+                    <td style="text-align: right;" width="43%">
+                      Wind Speed:
+                      <td>
+                        <input type="text" id="input5">m/s  
+                      </td>
+                    </td>
+                  </tr>
+                </td>
+              </tr>
+            </td>
+          </tr>
+        </td>
+      </tr>
+    </table>
+    <script>
+      function getweather()
+      {
+        var var1="";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function()
+        {
+          if (this.readyState == 4 && this.status == 200)
+          {
+            var1 = JSON.parse(this.responseText);
+            document.getElementById('input1').value = Number(var1.main.temp)-273;
+            document.getElementById('input2').value = Number(var1.main.temp_min)-273;
+            document.getElementById('input3').value = Number(var1.main.temp_max)-273;
+            document.getElementById('input4').value = var1.main.humidity;
+            document.getElementById('input5').value = var1.wind.speed;
+          }
+        };
+        var s=document.getElementById('input').value;
+        xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?q="+s+"&APPID=f17c87b5b634415c60e46cc06f4e485b", true);
+        xhttp.send();
+      }
+    </script>
+  </body>
+</html>
